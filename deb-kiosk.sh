@@ -59,7 +59,7 @@ fi
 cat > /home/kiosk/.config/openbox/autostart << EOF
 #!/bin/bash
 
-export KIOSK_URL="https://neave.tv/"
+export KIOSK_URL="https://www.google.com/"
 
 unclutter -idle 0.1 -grab -root &
 
