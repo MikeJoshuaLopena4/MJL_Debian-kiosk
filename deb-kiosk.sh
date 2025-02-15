@@ -15,13 +15,13 @@ apt-get install -y \
     lightdm \
     locales
 
-# Create kiosk user if it doesn't exist
-echo "Creating 'kiosk' user..."
-id -u kiosk &>/dev/null || useradd -m kiosk -g kiosk -s /bin/bash
-
 # Create 'kiosk' group
 echo "Ensuring 'kiosk' group exists..."
 groupadd -f kiosk
+
+# Create kiosk user if it doesn't exist
+echo "Creating 'kiosk' user..."
+id -u kiosk &>/dev/null || useradd -m kiosk -g kiosk -s /bin/bash
 
 # Create necessary directories
 echo "Setting up directories..."
