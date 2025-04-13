@@ -35,7 +35,7 @@ chown -R kiosk:kiosk /home/kiosk
 echo "Configuring Xorg..."
 cat > /etc/X11/xorg.conf << EOF
 Section "ServerFlags"
-    Option "DontVTSwitch" "true"
+    Option "DontVTSwitch" "false"
 EndSection
 EOF
 
@@ -46,7 +46,7 @@ if [ -e "/etc/lightdm/lightdm.conf" ]; then
 fi
 cat > /etc/lightdm/lightdm.conf << EOF
 [Seat:*]
-xserver-command=X -nocursor -nolisten tcp
+xserver-command=X -nolisten tcp
 autologin-user=kiosk
 autologin-session=openbox
 EOF
@@ -61,7 +61,7 @@ cat > /home/kiosk/.config/openbox/autostart << EOF
 
 export KIOSK_URL="https://www.google.com/"
 
-unclutter -idle 0.1 -grab -root &
+#unclutter -idle 0.1 -grab -root &
 
 while true; do
     xrandr --auto
@@ -84,6 +84,9 @@ EOF
 
 # Set execution permissions
 chmod +x /home/kiosk/.config/openbox/autostart
+ls /usr/sbin/groupadd
+export PATH=$PATH:/usr/sbin
+groupadd -f kiosk
 chown kiosk:kiosk /home/kiosk/.config/openbox/autostart
 
 # Allow kiosk user to access X server
